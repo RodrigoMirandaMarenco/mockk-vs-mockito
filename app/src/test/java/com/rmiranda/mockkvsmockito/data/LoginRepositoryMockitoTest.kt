@@ -15,7 +15,7 @@ import org.mockito.kotlin.mock
  * Created by rodrigomiranda on 14/12/21.
  * Applaudo Studios
  */
-class LoginRepositoryTest {
+class LoginRepositoryMockitoTest {
     private lateinit var loginRepository: LoginRepository
     private lateinit var loginDataSource: LoginDataSource
 
