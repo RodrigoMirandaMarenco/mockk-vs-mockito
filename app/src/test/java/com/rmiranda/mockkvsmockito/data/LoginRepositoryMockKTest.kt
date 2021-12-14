@@ -6,6 +6,7 @@ import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.resultError
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.userName
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.wrongPassword
 import io.mockk.*
+import kotlinx.coroutines.Dispatchers
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -44,5 +45,11 @@ class LoginRepositoryMockKTest {
     fun `User logs out`() {
         loginRepository.logout()
         verify { loginDataSource.logout() }
+    }
+
+    @Test
+    fun `fetch User URL`() {
+        loginRepository.fetchUserUrl(Dispatchers.Unconfined)
+        coVerify { loginDataSource.fetchUserUrl() }
     }
 }
