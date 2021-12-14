@@ -1,13 +1,15 @@
 package com.rmiranda.mockkvsmockito.data
 
-import com.rmiranda.mockkvsmockito.data.model.LoggedInUser
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.fakeUser
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.password
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.resultError
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.userName
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.wrongPassword
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import java.io.IOException
-import java.util.*
 
 /**
  * Created by rodrigomiranda on 14/12/21.
@@ -16,11 +18,6 @@ import java.util.*
 class LoginRepositoryTest {
     private lateinit var loginRepository: LoginRepository
     private lateinit var loginDataSource: LoginDataSource
-    private val userName = "userName"
-    private val password = "password"
-    private val wrongPassword = "wrongPassword"
-    private val fakeUser = LoggedInUser(UUID.randomUUID().toString(), "Android Huddle")
-    private val resultError = Result.Error(IOException("Wrong credentials"))
 
     @Before
     fun setup() {
