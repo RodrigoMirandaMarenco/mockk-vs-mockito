@@ -1,6 +1,9 @@
 package com.rmiranda.mockkvsmockito.data
 
 import com.rmiranda.mockkvsmockito.data.model.LoggedInUser
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -42,5 +45,11 @@ class LoginRepository(val dataSource: LoginDataSource) {
         this.user = loggedInUser
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
+    }
+
+    fun fetchUserUrl(ioDispatcher: CoroutineDispatcher) {
+        CoroutineScope(ioDispatcher).launch {
+            dataSource.fetchUserUrl()
+        }
     }
 }
