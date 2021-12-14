@@ -1,10 +1,10 @@
 package com.rmiranda.mockkvsmockito.data
 
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.fakeUser
-import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.password
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.PASSWORD
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.resultError
-import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.userName
-import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.wrongPassword
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.USER_NAME
+import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.WRONG_PASSWORD
 import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert
@@ -22,8 +22,8 @@ class LoginRepositoryMockKTest {
     @Before
     fun setup() {
         loginDataSource = mockk {
-            every { login(userName, password) } returns Result.Success(fakeUser)
-            every { login(userName, wrongPassword) } returns resultError
+            every { login(USER_NAME, PASSWORD) } returns Result.Success(fakeUser)
+            every { login(USER_NAME, WRONG_PASSWORD) } returns resultError
             every { logout() } just Runs
         }
         loginRepository = LoginRepository(loginDataSource)
@@ -31,13 +31,13 @@ class LoginRepositoryMockKTest {
 
     @Test
     fun `User logs in with correct credentials`() {
-        val result = loginRepository.login(userName, password)
+        val result = loginRepository.login(USER_NAME, PASSWORD)
         Assert.assertEquals(result, Result.Success(fakeUser))
     }
 
     @Test
     fun `User logs in with incorrect credentials`() {
-        val result = loginRepository.login(userName, wrongPassword)
+        val result = loginRepository.login(USER_NAME, WRONG_PASSWORD)
         Assert.assertEquals(result, resultError)
     }
 

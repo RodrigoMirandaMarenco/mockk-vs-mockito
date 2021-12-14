@@ -10,9 +10,9 @@ import java.util.*
  * Applaudo Studios
  */
 object TestLoginUtils {
-    val userName = "userName"
-    val password = "password"
-    val wrongPassword = "wrongPassword"
+    const val USER_NAME = "userName"
+    const val PASSWORD = "password"
+    const val WRONG_PASSWORD = "wrongPassword"
     val fakeUser = LoggedInUser(UUID.randomUUID().toString(), "Android Huddle")
     val resultError = Result.Error(IOException("Wrong credentials"))
 }
