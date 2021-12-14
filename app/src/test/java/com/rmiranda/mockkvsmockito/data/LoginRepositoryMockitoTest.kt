@@ -10,6 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
 
 /**
  * Created by rodrigomiranda on 14/12/21.
@@ -38,5 +39,11 @@ class LoginRepositoryMockitoTest {
     fun `User logs in with incorrect credentials`() {
         val result = loginRepository.login(userName, wrongPassword)
         Assert.assertEquals(result, resultError)
+    }
+
+    @Test
+    fun `User logs out`() {
+        loginRepository.logout()
+        verify(loginDataSource).logout()
     }
 }
