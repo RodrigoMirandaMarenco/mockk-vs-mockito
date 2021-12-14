@@ -5,8 +5,7 @@ import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.password
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.resultError
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.userName
 import com.rmiranda.mockkvsmockito.data.utils.TestLoginUtils.wrongPassword
-import io.mockk.every
-import io.mockk.mockk
+import io.mockk.*
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -24,6 +23,7 @@ class LoginRepositoryMockKTest {
         loginDataSource = mockk {
             every { login(userName, password) } returns Result.Success(fakeUser)
             every { login(userName, wrongPassword) } returns resultError
+            every { logout() } just Runs
         }
         loginRepository = LoginRepository(loginDataSource)
     }
@@ -38,5 +38,11 @@ class LoginRepositoryMockKTest {
     fun `User logs in with incorrect credentials`() {
         val result = loginRepository.login(userName, wrongPassword)
         Assert.assertEquals(result, resultError)
+    }
+
+    @Test
+    fun `User logs out`() {
+        loginRepository.logout()
+        verify { loginDataSource.logout() }
     }
 }
